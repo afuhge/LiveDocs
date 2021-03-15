@@ -1,0 +1,207 @@
+ stealth import "model/Template.mgl" as template
+ stealth import "model/Constraint.mgl" as con
+
+@mcam("check")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.ELSECheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.DateCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.FieldCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.FieldConstraintCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.StartPanelCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.NoEdgesofPanelInContainer")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.dependency.checks.CorrectConstraintUsed")
+//@postSave("info.scce.cinco.product.documentproject.dependency.hooks.SetDependencyName")
+@style("model/Dependency.style")
+graphModel Dependency {
+	package info.scce.cinco.product.documentproject.dependency
+	nsURI "http://cinco.scce.info/product/dependency"
+	iconPath "icons/dependency_icon.png"
+	diagramExtension "dependency"
+	containableElements( {AND, OR,XOR, FieldConstraint, Panel} [0,*], Constraints[0,1])
+	attr EString as name :="Dependency"
+	
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.OpenModel")
+	@style(constraint, "${constraint.name}")
+	node Constraints {
+		prime con::Constraint as constraint
+	}
+	
+	@disable(resize)
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.PostCreate")
+	@postDelete("info.scce.cinco.product.documentproject.dependency.hooks.PostDelete")
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.DoubleClick_OpenModel")
+	@contextMenuAction("info.scce.cinco.product.documentproject.dependency.actions.ContextMenu_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.SetName")
+	@style(panel, "${panel.name}")
+	node Panel {
+		prime template::Panel as panel
+		@propertiesViewHidden attr EString as name
+		outgoingEdges (Else [0,1], {Must,PanelToConstraint} [0,*])
+		incomingEdges ({Must, Else } [0,*])
+	}
+	
+	@palette("Operator-Container")
+	@style(and, "AND")
+	@icon("icons/template/and.png")
+	container AND {
+		containableElements (Panel [1,*])
+		incomingEdges ({Must, Else} [0,*])
+		outgoingEdges ({Must,PanelToConstraint} [0,*], Else [0,1])
+	}
+	
+	@palette("Operator-Container")
+	@style(and, "XOR")
+	@icon("icons/template/xor.png")
+	container XOR {
+		containableElements (Panel [1,*])
+		incomingEdges ({Must, Else} [0,*])
+		outgoingEdges ({Must,PanelToConstraint} [0,*], Else [0,1])
+	}
+	
+	@palette("Operator-Container")
+	@style(and, "OR")
+	@icon("icons/template/or.png")
+	container OR {
+		containableElements (Panel [1,*])
+		incomingEdges ({Must, Else} [0,*])
+		outgoingEdges ({Must,PanelToConstraint} [0,*], Else [0,1])
+	}
+
+	
+	//-----field constraints-------------------------------------
+	
+	abstract container FieldConstraint {
+		@propertiesViewHidden attr EString as label
+		outgoingEdges(Must[0,*])
+	}
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.TextFieldConstraint_OpenModel")
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostCreate")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${field.label}", "${operator}", "${value}")
+	container TextFieldConstraint extends FieldConstraint{
+		prime template::TextField as field
+		attr TextFieldOperator as operator
+		attr EString as value := "value"
+		incomingEdges(PanelToTextFieldConstraint [1,1])
+	}
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.NumberFieldConstraint_OpenModel")
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostCreate")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint,"${field.label}",  "${operator}", "${value}")
+	container NumberFieldConstraint extends FieldConstraint{
+		prime template::NumberField as field
+		attr NumberFieldOperator as operator
+		attr EInt as value 
+		incomingEdges(PanelToNumberFieldConstraint [1,1])
+	}
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.DateFieldConstraint_OpenModel")
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostCreate")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${field.label}",  "${operator}","${date_day}/${date_month}/${date_year}")
+	container DateFieldConstraint extends FieldConstraint{
+		prime template::DateField as field
+		attr DateFieldOperator as operator
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.dependency.provider.MonthProvider") attr EString as date_month
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.dependency.provider.DayProvider") attr EString as date_day
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.dependency.provider.YearProvider") attr EString as date_year
+		incomingEdges(PanelToDateFieldConstraint [1,1])
+		
+	}
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.CheckBoxFieldConstraint_OpenModel")
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostCreate")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${field.label}", "${operator}", "${value}")
+	container CheckBoxFieldConstraint extends FieldConstraint{
+		prime template::CheckBoxField as field
+		@readOnly attr EString as operator := "=="
+		attr EBoolean as value
+		incomingEdges(PanelToCheckboxFieldConstraint [1,1])
+	}
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.dependency.actions.ChoiceFieldConstraint_OpenModel")
+	@postCreate("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostCreate")
+	@postAttributeChange("info.scce.cinco.product.documentproject.dependency.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${field.label}", "${operator}", "${value}")
+	container ChoiceFieldConstraint extends FieldConstraint{
+		prime template::ChoiceField as field
+		attr ChoiceFieldOperator as operator
+		attr EString as value [0,*]
+		incomingEdges(PanelToChoiceFieldConstraint [1,1])
+	}
+	
+	
+	//-----------edges -----------------------------------------------------
+	abstract edge PanelToConstraint{}
+	
+	
+	@style(constraintEdge)
+	edge PanelToTextFieldConstraint extends PanelToConstraint{
+		
+	}
+	
+	@style(constraintEdge)
+	edge PanelToNumberFieldConstraint extends PanelToConstraint{
+		
+	}
+	@style(constraintEdge)
+	edge PanelToDateFieldConstraint extends PanelToConstraint{
+		
+	}
+	@style(constraintEdge)
+	edge PanelToCheckboxFieldConstraint extends PanelToConstraint{
+		
+	}
+	@style(constraintEdge)
+	edge PanelToChoiceFieldConstraint extends PanelToConstraint{
+		
+	}
+	
+	
+	@style(constraintEdge)
+	edge Must{
+		
+	}
+	
+	@style(else, "ELSE")
+	edge Else{}
+	
+	
+	//------- enums --------------------------------------
+	
+	enum TextFieldOperator {
+		equal
+		contains 
+		notEqual
+	}
+	
+	enum NumberFieldOperator {
+		lessEqual
+		less
+		greater
+		greaterEqual
+		equal
+		notEqual
+	}
+	
+	enum DateFieldOperator {
+		before
+		after
+		same
+	}
+	
+	enum ChoiceFieldOperator {
+		equal 
+		in
+		notIn
+	}
+}
+

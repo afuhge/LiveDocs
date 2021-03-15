@@ -1,0 +1,7 @@
+@disableGratext
+cincoProduct DocumentProject {
+	mgl "model/Documents.mgl"
+	mgl "model/Template.mgl"
+	mgl "model/Dependency.mgl"
+	mgl "model/Constraint.mgl"
+}		

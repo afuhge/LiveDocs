@@ -1,0 +1,23 @@
+.h1 {
+    display: inline;
+    margin: 0;
+}
+
+.deleteButton {
+    background-color: #0056b3;
+}
+
+.user-table{
+   background-color:#369;
+}
+
+.active-info input[type=search]:focus:not([readonly]) {
+    border: 1px solid #17a2b8;
+}
+
+th:not(:last-child), td:not(:last-child) { border-right: 2px solid #dee2e6; }
+
+
+td {
+    word-break: break-word;
+}

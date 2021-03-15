@@ -1,0 +1,78 @@
+<h2>Users</h2>
+<hr>
+
+<div class="card card-secondary card-outline">
+    <div class="card-header">
+        <h3 class="card-title text-secondary pt-1 pl-2 pr-2 bd-highlight" style="margin-top: 6px;">All ({{users.length}})</h3>
+        <div class="card-tools">
+            <div class="input-group-prepend ">
+                <add-user></add-user>
+                <form [ngFormModel]="searchContent"  #docForm="ngForm">
+                    <div class="input-group input-group-sm active-info" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search"  ngControl="search"
+                               [class.is-invalid]="searchContent.controls['search'].invalid && searchContent.controls['search'].touched"
+                               [class.is-valid]="!searchContent.controls['search'].invalid">
+                        <div class="input-group-append">
+                            <searchUser [users]="users" [input]="searchContent.controls['search'].value"></searchUser>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card-body table-responsive p-0" style="height: 100%;">
+    <div *ngIf="users.isEmpty" class="alert alert-info alert-dismissible ">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-info"></i>Info!</h5>
+            No users available.
+        </div>
+        <table class="table table-head-fixed table-hover" style="table-layout: fixed;">
+            <thead>
+            <tr>
+                <th scope="col">First name
+                    <div class=" d-flex flex-column" style="float:right;">
+                        <a (click)="sortAscendingFirstName()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                        <a (click)="sortDescendingFirstName()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                    </div>
+                </th>
+                <th scope="col">Last name
+                    <div class=" d-flex flex-column" style="float:right;">
+                        <a (click)="sortAscendingLastName()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                        <a (click)="sortDescendingLastName()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                    </div>
+                </th>
+                <th scope="col">Email
+                    <div class=" d-flex flex-column" style="float:right;">
+                        <a (click)="sortAscendingEmail()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                        <a (click)="sortDescendingEmail()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                    </div>
+                </th>
+                <th scope="col">Role
+                    <div class=" d-flex flex-column" style="float:right;">
+                        <a (click)="sortAscendingRole()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                        <a (click)="sortDescendingRole()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                    </div>
+                </th>
+                <th scope="col" class="text-right" style="padding-bottom: 37px;">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users; let i=index">
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role.name}}</td>
+                <td>
+                    <div class="float-right d-flex flex-row">
+                        <delete class="pr-1" [user]="user"></delete>
+                        <my-user-data [user]="user"></my-user-data>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

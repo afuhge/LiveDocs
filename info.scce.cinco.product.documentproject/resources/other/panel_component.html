@@ -1,0 +1,13 @@
+<div *ngIf="doc != null">
+    <h2>{{doc.fileName}}</h2>
+    <div class="panelcontainer">
+        <div class="mr-2 text-right" role="group">
+            <button (click)="back()" type="button" class="btn btn-info btn-sm ">Back</button>
+        </div>
+        <hr>
+        <div class="container-fluid">
+            <panels-switch [dep]="doc.startDependency" [panel]="doc.startDependency.start"></panels-switch>
+        </div>
+    </div>
+</div>
+

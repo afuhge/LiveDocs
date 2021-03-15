@@ -1,0 +1,843 @@
+appearance role {
+	lineWidth 2
+	background (136,138,133)
+	foreground (255,255,255)
+}
+
+appearance default {
+	lineWidth 2
+	foreground (0,0,0)
+}
+
+appearance content {
+	lineWidth 2
+	background (255,206,150)
+	foreground (215,164,110)
+}
+
+
+appearance sign {
+	lineWidth 1
+	background (255,255,255)
+	foreground (255,255,255)
+	filled false
+	transparency 1
+}
+
+
+nodeStyle role (1){
+	appearanceProvider("info.scce.cinco.product.documentproject.template.aps.RoleColoring")
+	roundedRectangle {
+		appearance role
+		size(60,60)
+		corner(8,8)
+		multiText {
+			appearance {
+				foreground (255,255,255)
+				font ("Liberation Sans", BOLD , 12)
+			}
+			position ( CENTER, MIDDLE )
+			value "%s"
+		}
+	}
+}
+
+nodeStyle form(1) {
+	rectangle {
+		appearance {
+			lineWidth 2
+			lineStyle DASH
+			foreground (127,127,127)
+			background (255,255,255)
+			filled true
+		}
+		size (200,80)
+		text {
+			appearance extends content {
+				foreground (0,0,0)
+				background (255,255,255)
+				font ("Helvetica",12)
+			}
+			position (CENTER,TOP 2)
+			value "%s"
+		}
+	}
+}
+
+nodeStyle staticText (1) {
+	appearanceProvider ("info.scce.cinco.product.documentproject.template.aps.ComponentColoring")
+	rectangle {
+		appearance {
+			background (255,255,255)
+			foreground (255,255,255)
+			filled true
+		}
+		size (200,60)
+		multiText fieldText1 {
+			appearance  {
+				font ("Helvetica",BOLD,12)
+				foreground (0,0,0)
+				background (255,255,255)
+			}
+			position (LEFT 5,TOP 20)
+			value "%1$s"
+		}
+	}
+}
+
+nodeStyle field (2) {
+	appearanceProvider ("info.scce.cinco.product.documentproject.template.aps.ComponentColoring")
+	rectangle {
+		appearance {
+			background (255,255,255)
+			foreground (255,255,255)
+			filled true
+		}
+		size (200,60)
+		text fieldText1 {
+			appearance  {
+				font ("Helvetica",BOLD,12)
+				foreground (0,0,0)
+				background (255,255,255)
+			}
+			position (LEFT 5,TOP 20)
+			value "%1$s"
+		}
+		roundedRectangle fieldColor {
+			appearance {
+				foreground (214,215,212)
+				background (255,255,255)
+				lineWidth 1
+			}
+			position(LEFT 5,TOP 40)
+			size(180,20)			
+			corner (4,4)
+			text fieldText2 {
+					appearance {
+					font ("Helvetica",10)
+					foreground (0,0,0)
+					background (255,255,255)
+				}
+				position (LEFT 5,MIDDLE)
+				value "%2$s"
+			}
+		}
+	}
+}
+
+nodeStyle panelStyle(1) {
+	appearanceProvider ("info.scce.cinco.product.documentproject.template.aps.ComponentColoring")
+	roundedRectangle panelBorder {
+		appearance {
+			background (255,255,255)
+			foreground (214,215,212)
+			filled true
+			lineWidth 2
+		}
+		size (200,160)
+		corner (4,4)
+		roundedRectangle panelColor1 {
+			appearance {
+				background (214,215,212)
+				foreground (0,0,0)
+				filled true
+			}
+			position (CENTER,TOP) 
+			size (200,fix 20)
+			corner (4,4)
+			image pre{
+				position (LEFT 15,MIDDLE)
+				size(fix 20,fix 20)
+				path ("/icons/template/None.png")  
+			}
+			text panelText1 {
+				appearance {
+				font ("Helvetica",10)
+				foreground (0,0,0)
+				background (214,215,212)
+			}
+			position (CENTER ,MIDDLE 2)
+				value "%1$s"
+			}
+			image post {
+			position (RIGHT -5,MIDDLE)
+			size(fix 20,fix 20)
+			path ("/icons/template/None.png")  
+		}
+		}
+		roundedRectangle panelColor2 {
+			appearance {
+				background (214,215,212)
+				foreground (0,0,0)
+			}
+			position (CENTER,BOTTOM) 
+			size (200,fix 20)
+			corner (4,4)
+		}
+	}
+}
+
+nodeStyle buttonStyle(1) {
+	appearanceProvider ("info.scce.cinco.product.documentproject.template.aps.ComponentColoring")
+	rectangle{
+		appearance {
+			foreground (255,255,255)
+			background (255,255,255)
+			filled true
+		}
+		size(200,60)
+		roundedRectangle buttonColor {
+			appearance {
+				foreground (214,215,212)
+				background (255,255,255)
+				lineWidth 3
+			}
+			position (LEFT 5 ,TOP 20)
+			size(180,30)
+			corner (4,4)
+			image pre{
+				position (LEFT 5,MIDDLE)
+				size(fix 20,fix 20)
+				path ("/icons/template/None.png")  
+			}
+			text buttonText {
+				appearance {
+					font ("Helvetica",12)
+					foreground (0,0,0)
+					background (255,255,255)
+				}
+				position (CENTER,MIDDLE)
+				value "%s"
+			}
+			image post{
+				position (RIGHT -5,MIDDLE)
+				size(fix 20,fix 20)
+				path ("/icons/template/None.png")  
+			}
+		}
+	}
+	
+}
+
+
+nodeStyle signUpStyle {
+	rectangle {
+		appearance sign
+		size (14,7)
+		image {
+				position (CENTER,MIDDLE)
+				size (fix 14,fix 7)
+				path ("/icons/template/arrowUp.png") 
+				
+			}
+	}
+}
+
+nodeStyle signDownStyle {
+	rectangle {
+		appearance sign
+		size (14,7)
+		image {
+				position (CENTER,MIDDLE)
+				size (fix 14,fix 7)
+				path ("/icons/template/arrowDown.png") 
+				
+			}
+	}
+}
+
+
+
+nodeStyle dependency (1){
+	rectangle {
+		appearance {
+			background (255,255,255)
+			foreground (0,0,0)
+		}
+		size (60,80)
+		multiText name {
+			appearance default				
+			position (CENTER,TOP)
+			value "%s"
+		}
+		image {
+			position (CENTER, BOTTOM -10)
+			size (50,50)
+			path ("/icons/template/form.png") 
+		}
+	}
+}
+
+
+edgeStyle write (1){
+	appearance {
+		foreground (0,0,0)
+		lineWidth 2
+	}
+	decorator {
+		ARROW
+//		movable
+		location (1.0)
+	}
+	decorator {
+		movable
+		text  {
+			appearance default
+			value "%s"
+		}
+		location (0.5)
+	}
+}
+
+edgeStyle read (1){
+	appearance {
+		foreground (0,0,0)
+		lineWidth 2
+		lineStyle DASH
+	}
+	decorator {
+		ARROW
+		appearance {
+			lineStyle DASH
+		}
+//		movable
+		location (1.0)
+	}
+	decorator {
+		movable
+		text  {
+			appearance default
+			value "%s"
+		}
+		location (0.5)
+	}
+}
+
+
+nodeStyle ImageBorder {
+	rectangle{
+		size(0,0)
+		image {
+			size(fix 25,fix 25)
+			path ("/icons/template/Circle.png") 
+		}
+		image {
+			size(fix 25,fix 25)
+			path ("/icons/template/Rounded.png") 
+		}
+		image {
+			size(fix 25,fix 25)
+			path ("/icons/template/Default.png") 
+		}
+		image {
+			size(fix 25,fix 25)
+			path ("/icons/template/Thumbnail.png") 
+		}
+	}
+}
+
+nodeStyle GlyphIcon {
+	rectangle{
+		size(0,0)
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Cloud.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Adjust.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ArrowLeft.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ArrowRight.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ArrowUp.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ArrowDown.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/BanCircle.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Bold.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Book.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Bookmark.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Camera.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Check.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ChevronDown.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ChevronUp.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Cog.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Download.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Envelope.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Euro.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/File.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Film.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Flag.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Font.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Gift.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Fire.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Glass.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Headphones.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Heart.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Home.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Inbox.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/InfoSign.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Italic.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Leaf.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Lock.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Minus.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Music.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/None.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Off.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Ok.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/OkCircle.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Picture.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Plus.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Print.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/QuestionSign.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Refresh.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Remove.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/RemoveCircle.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Repeat.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Road.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Screenshot.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Search.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Share.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Signal.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Star.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Stats.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Tag.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Time.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Tint.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Trash.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Upload.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/User.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Upload.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ZoomIn.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ZoomOut.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Alert.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Apple.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Bell.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Blackboard.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Briefcase.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Bullhorn.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Calendar.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Cd.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Certificate.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ChevronLeft.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ChevronRight.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Comment.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Copy.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Dashboard.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Duplicate.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Earphone.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Edit.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Education.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Equalizer.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Erase.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Expand.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Export.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/EyeOpen.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Filter.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Flash.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/FloppyDisk.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/FloppySaved.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/FloppyRemove.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/FolderClose.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/FolderOpen.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Globe.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Hdd.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Hourglass.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Import.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Link.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/LogIn.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/LogOut.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Magnet.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Move.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Open.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Paperclip.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Paste.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Pencil.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Phone.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Pushpin.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Random.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Record.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Retweet.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Save.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Saved.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Scale.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Send.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/ThumbsUp.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Transfer.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Tasks.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/TriangleDown.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/TriangleUp.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/TriangleLeft.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/TriangleRight.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Unchecked.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Usd.png") 
+		}
+		image {
+			size(fix 20,fix 20)
+			path ("/icons/template/Wrench.png") 
+		}
+	}
+}

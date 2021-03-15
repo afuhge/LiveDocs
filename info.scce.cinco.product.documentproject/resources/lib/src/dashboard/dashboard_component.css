@@ -1,0 +1,3 @@
+.active-info input[type=text]:focus:not([readonly]) {
+    border: 1px solid #17a2b8;
+}

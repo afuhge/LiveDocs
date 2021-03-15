@@ -1,0 +1,71 @@
+
+<!-- Modal -->
+<div class="btn-group-sm" role="group">
+    <button type="submit" (click)="showModal=true" class="btn btn-info btn-sm"><i class ="fas fa-edit fa-search"></i></button>
+</div>
+
+<div *ngIf="showModal" class="modal fade show text-left" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-info">
+                <h5 class="modal-title" id="exampleModalLabel">{{search(users, input).length}} Search Results for '{{input}}'</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div *ngIf="search(users, input).isEmpty" class="alert alert-info alert-dismissible ">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-info"></i>Info!</h5>
+                    No users found for '{{input}}'.
+                </div>
+                <table *ngIf="!search(users, input).isEmpty" class="table table-head-fixed table-hover " style="table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th scope="col">First name
+                            <div class=" d-flex flex-column" style="float:right;">
+                                <a (click)="sortAscendingFirstName()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                                <a (click)="sortDescendingFirstName()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                            </div>
+                        </th>
+                        <th scope="col">Last name
+                            <div class=" d-flex flex-column" style="float:right;">
+                                <a (click)="sortAscendingLastName()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                                <a (click)="sortDescendingLastName()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                            </div>
+                        </th>
+                        <th scope="col">Email
+                            <div class=" d-flex flex-column" style="float:right;">
+                                <a (click)="sortAscendingEmail()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                                <a (click)="sortDescendingEmail()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                            </div>
+                        </th>
+                        <th scope="col">Role
+                            <div class=" d-flex flex-column" style="float:right;">
+                                <a (click)="sortAscendingRole()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up "></i></a>
+                                <a (click)="sortDescendingRole()" style="cursor: pointer;"><i class="fas fa-chevron-down "></i></a>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-right" style="padding-bottom: 37px;">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let user of search(users, input); let i=index">
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role.name}}</td>
+                        <td>
+                            <div class="float-right d-flex flex-row">
+                                <delete class="pr-1" [user]="user"></delete>
+                                <my-user-data [user]="user"></my-user-data>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+
+<!-- Modal -->
+<div class="btn-group-sm" role="group">
+    <button type="button" (click)="showModal=true" class="btn btn-info btn-sm"><i class ="fas fa-edit fa-fw"></i></button>
+</div>
+
+<div *ngIf="showModal" class="modal fade show text-left" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-info">
+                <h5 class="modal-title" id="exampleModalLabel">User data</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div class="container">
+                    <form [ngFormModel]="userdata"  (ngSubmit)="submit($event, userdata)" #userForm="ngForm">
+                        <div class="form-group active-info">
+                            <label for="firstName">First name&nbsp;*</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter..." ngControl="firstName"
+                                   [class.is-invalid]="userdata.controls['firstName'].invalid && userdata.controls['firstName'].touched"
+                                   [class.is-valid]="!userdata.controls['firstName'].invalid">
+                            <div [hidden]="userdata.controls['firstName'].valid || userdata.controls['firstName'].pristine" class="invalid-feedback">
+                                Please enter a first name.
+                            </div>
+                        </div>
+                        <div class="form-group active-info">
+                            <label for="lastName">Last name&nbsp;*</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter..." ngControl="lastName"
+                                   [class.is-invalid]="userdata.controls['lastName'].invalid && userdata.controls['lastName'].touched"
+                                   [class.is-valid]="!userdata.controls['lastName'].invalid">
+                            <div [hidden]="userdata.controls['lastName'].valid || userdata.controls['lastName'].pristine" class="invalid-feedback">
+                                Please enter a last name.
+                            </div>
+                        </div>
+                        <div class="form-group active-info">
+                            <label for="email">Email&nbsp;*</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter..." ngControl="email"
+                                   [class.is-invalid]="userdata.controls['email'].invalid && userdata.controls['email'].touched"
+                                   [class.is-valid]="!userdata.controls['email'].invalid">
+
+                            <div [hidden]="userdata.controls['email'].valid || userdata.controls['email'].pristine" class="invalid-feedback">
+                                Please enter an email.
+                            </div>
+                        </div>
+                        <div class="form-group active-info">
+                            <label for="password">Password&nbsp;*</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter..." ngControl="password"
+                                   [class.is-invalid]="userdata.controls['password'].invalid && userdata.controls['password'].touched"
+                                   [class.is-valid]="!userdata.controls['password'].invalid">
+
+                            <div [hidden]="userdata.controls['password'].valid || userdata.controls['password'].pristine" class="invalid-feedback">
+                                Please enter a password.
+                            </div>
+                        </div>
+                         <div class="form-group active-info">
+                            <label for="role">Role</label>
+                            <select id="role" class="form-control" ngControl="role" [class.is-valid]="!userdata.controls['role'].invalid">
+                                <option *ngFor="let p of roles">{{p}}</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <small class="col text-right">*&nbsp;Required</small>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group-sm btn-group mr-2 " style="display:block; text-align: right;" role="group">
+                                <button type="button"  style="float:none;" (click)="showModal=false" class="btn btn-secondary" >Close</button>
+                                <button [disabled]="userdata.invalid"  style="float:none;"  (click)="submit($event, userdata)" type="submit" class="btn text-white btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

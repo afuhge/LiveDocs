@@ -1,0 +1,32 @@
+<li class="nav-header">DOCUMENT TREE VIEW</li>
+<div>
+    <li class="nav-item has-treeview " [class.menu-open]="treeOpen">
+        <a class="nav-link active bg-info">
+            <div class="d-flex flex-row align-items-center">
+                <i class="nav-icon fas fa-file-alt fa-fw"></i>
+                <p class="w-100 ml-2">{{doc.fileName}} ({{doc.name}})</p>
+                <button type="button" class="btn btn-info btn-sm ml-2" (click)="treeOpen=!treeOpen"
+                        style="margin-right: -.75rem">
+                    <i class="fas fa-fw" [class.fa-angle-left]="!treeOpen" [class.fa-angle-down]="treeOpen"></i>
+                </button>
+            </div>
+            <div *ngIf="!doc.isOpen" class="d-flex flex-row">
+                <span class="badge badge-danger" style="padding-top: 5px;">Closed</span>
+            </div>
+            <div *ngIf="doc.isOpen" class="d-flex flex-row">
+                <span class="badge badge-success" style="padding-top: 5px;">Opened</span>
+            </div>
+        </a>
+        <ul *ngIf="treeOpen " class="nav nav-treeview">
+            <li class="nav-item d-flex mb-1">
+                <closedoc [hidden]="!doc.isOpen" [msg]="doc.validMsg" [doc]="doc" [valid]="doc.valid"></closedoc>
+<!--                <button class="ml-auto" [hidden]="!doc.isOpen && !docValid" (click)="closeDoc(doc)" class="btn btn-danger btn-sm ">Close-->
+<!--                </button>-->
+                <infomodal [hidden]="!doc.isOpen" [doc]="doc"></infomodal>
+                <button [hidden]="doc.isOpen" (click)="openDoc(doc)" class="btn btn-success btn-sm">Reopen
+                </button>
+            </li>
+            <doctree-switch [panel]="doc.startDependency.start"></doctree-switch>
+        </ul>
+    </li>
+</div>

@@ -1,0 +1,92 @@
+<h2>Dashboard</h2>
+<hr>
+
+<div class="card card-success card-outline">
+    <div class="card-header" style="height: 70px;">
+        <div class="d-flex bd-highlight mb-3">
+            <h3 class="card-title text-success pt-1 pl-2 pr-2 bd-highlight" style="margin-top: 6px;">Opened Documents</h3>
+            <div class="pl-2 pr-2 bd-highlight d-flex flex-column">
+                <a  (click)="sortAscendingOpened()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up text-secondary"></i></a>
+                <a (click)="sortDescendingOpened()" style="cursor: pointer;"><i class="fas fa-chevron-down text-secondary"></i></a>
+
+            </div>
+            <div class="card-tools ml-auto pl-2 pr-2 bd-highlight" style="margin-top: 6px;">
+                <div class="input-group-prepend ">
+                    <form [ngFormModel]="myPanel1"  #docForm="ngForm">
+                        <div class="input-group input-group-sm active-info" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search"  ngControl="search"
+                                   [class.is-invalid]="myPanel1.controls['search'].invalid && myPanel1.controls['search'].touched"
+                                   [class.is-valid]="!myPanel1.controls['search'].invalid">
+                            <div class="input-group-append">
+                                <search [docs]="openedDocs()" [input]="myPanel1.controls['search'].value"></search>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 350px;">
+        <table class="table table-hover">
+            <tbody>
+            <div *ngIf="docs.isEmpty || hasNoPermission(docs)" class="alert alert-info alert-dismissible ">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-info"></i>Info!</h5>
+                No open documents available.
+            </div>
+            <tr *ngFor="let doc of docs">
+                <td *ngIf="doc.isOpen && hasPermission(doc)" [routerLink]="panelUrl(doc.id)"
+                    [routerLinkActive]="'active'" style="cursor: pointer;"><b>{{doc.fileName}} ({{doc.name}})</b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<div class="card card-danger card-outline">
+    <div class="card-header" style="height: 70px;">
+        <div class="d-flex bd-highlight mb-3">
+            <h3 class="card-title text-danger pt-1 pl-2 pr-2 bd-highlight" style="margin-top: 6px;">Closed Documents</h3>
+            <div class="pl-2 pr-2 bd-highlight d-flex flex-column">
+                <a (click)="sortAscendingClosed()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up text-secondary"></i></a>
+                <a (click)="sortDescendingClosed()" style="cursor: pointer;"><i class="fas fa-chevron-down text-secondary"></i></a>
+
+            </div>
+            <div class="card-tools ml-auto pl-2 pr-2 bd-highlight" style="margin-top: 6px;">
+                <div class="input-group-prepend ">
+                    <form [ngFormModel]="myPanel2"  #docForm="ngForm">
+                        <div class="input-group input-group-sm active-info" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search"  ngControl="search"
+                                   [class.is-invalid]="myPanel2.controls['search'].invalid && myPanel2.controls['search'].touched"
+                                   [class.is-valid]="!myPanel2.controls['search'].invalid">
+                            <div class="input-group-append">
+                                <search [docs]="closedDocs()" [input]="myPanel2.controls['search'].value"></search>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body table-responsive p-0" style="height: 350px;">
+        <table class="table table-hover">
+            <tbody>
+            <div *ngIf="docs.isEmpty || hasNoPermission(docs)" class="alert alert-info alert-dismissible ">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-info"></i>Info!</h5>
+                No closed documents available.
+            </div>
+            <tr *ngFor="let doc of docs">
+                <td *ngIf="!doc.isOpen && hasPermission(doc)" [routerLink]="panelUrl(doc.id)"
+                    [routerLinkActive]="'active'" style="cursor: pointer;"><b>{{doc.fileName}} ({{doc.name}})</b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

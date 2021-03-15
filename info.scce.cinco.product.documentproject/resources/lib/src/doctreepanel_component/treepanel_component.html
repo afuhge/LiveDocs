@@ -1,0 +1,11 @@
+<ul class="nav nav-treeview" style="display:block; margin-left: 15px">
+<li class="nav-item " >
+    <a href (click)="jumpToPanel($event)" class="nav-link d-flex flex-row">
+        <p class="text-secondary w-100"> {{panel.name}} </p>
+        <i *ngIf="panel.isSubmitted" class="fas fa-fw fa-check text-info"></i>
+    </a>
+    <template ngFor let-dep [ngForOf]="panel.dependencies" >
+        <doctree-switch *ngIf="dep != null && dep.start !=null" [panel]="dep.start"></doctree-switch>
+    </template>
+</li>
+  </ul>

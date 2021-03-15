@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Roles"
+            icon="icons/role.png"
+            category="info.scce.cinco.product.documentproject.views"
+            class="info.scce.cinco.product.documentproject.views.views.RolesView"
+            id="info.scce.cinco.product.documentproject.views.views.Roles">
+      </view>
+      <view
+            name="Templates"
+            icon="icons/template_icon.png"
+            category="info.scce.cinco.product.documentproject.views"
+            class="info.scce.cinco.product.documentproject.views.views.TemplateView"
+            id="info.scce.cinco.product.documentproject.views.views.Template">
+      </view>
+      <view
+            name="DocumentTypes"
+            icon="icons/dependency_icon.png"
+            category="info.scce.cinco.product.documentproject.views"
+            class="info.scce.cinco.product.documentproject.views.views.DocumentsView"
+            id="info.scce.cinco.product.documentproject.views.views.Documents">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

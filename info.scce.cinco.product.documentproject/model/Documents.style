@@ -1,0 +1,90 @@
+appearance default {
+	lineWidth 2
+	background (136,138,133)
+	foreground (255,255,255)
+}
+
+nodeStyle role (1){
+	appearanceProvider ("info.scce.cinco.product.documentproject.documents.aps.RoleColoring")
+	roundedRectangle {
+		appearance default
+		size(60,60)
+		corner(8,8)
+		multiText {
+			appearance {
+				foreground (255,255,255)
+				font ("Liberation Sans", BOLD , 12)
+			}
+			position ( CENTER, MIDDLE )
+			value "%s"
+		}
+	}
+}
+
+nodeStyle dependency (1){
+	ellipse{
+		appearance {
+			foreground (78,154,6)
+			background (255,255,255)
+			lineWidth 2
+		}
+		size(65,65)
+		multiText {
+				position ( CENTER, MIDDLE )
+				value "%s"
+		}
+	}
+}
+
+nodeStyle userIcon {
+	rectangle  {
+		appearance {
+			transparency 1.0
+		}
+		image {
+			position (LEFT 5, MIDDLE)
+			size (fix 16,fix 16)
+			path ("/icons/template/User.png")
+			
+			}
+	}
+}
+
+
+edgeStyle simpleArrow {	
+	appearance {
+		lineWidth 2
+		foreground (0,0,0)
+	}
+	decorator {
+		location (1.0) // at the end of the edge
+		ARROW
+		appearance {
+			lineWidth 2
+			foreground (0,0,0)
+		} 
+	}
+}
+
+edgeStyle create (1){	
+	appearance {
+		lineWidth 2
+		foreground (0,0,0)
+	}
+	decorator {
+		location (1.0) // at the end of the edge
+		ARROW
+		appearance {
+			lineWidth 2
+			foreground (0,0,0)
+		} 
+	}
+	decorator {
+		movable
+		location (0.5)
+		text {
+			value "%s"
+		}
+	}
+}
+

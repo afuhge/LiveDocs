@@ -1,0 +1,114 @@
+appearance default {
+	lineWidth 2
+	background (255,255,255)
+	foreground (0,0,0)
+}
+
+appearance pattern {
+	lineWidth 1
+	background (255,255,255)
+	foreground (0,0,0)
+}
+
+
+
+nodeStyle pattern (1){
+	roundedRectangle {
+		appearance pattern
+		size(250,70)
+		corner(4,4)
+		text {
+			appearance {
+				font ("Sans",BOLD,11)
+			}
+			position (LEFT 5, TOP 2)
+			value "%s"
+		}
+	}
+}
+
+
+nodeStyle panel (1){
+	appearanceProvider ("info.scce.cinco.product.documentproject.constraint.aps.PanelColoring")
+	roundedRectangle {
+		appearance {
+			lineWidth 2
+			foreground (0,0,0)
+		}
+		size(40,40)
+		corner (4,4)
+		multiText {
+			position ( CENTER, MIDDLE )
+			value "%1$s"
+		}
+	}
+}
+
+
+
+nodeStyle fieldConstraint (3) {
+	rectangle {
+		appearance extends default{
+			background (252,239,217)
+			lineWidth 1
+		}
+		size (160,40)
+		multiText label {
+			appearance extends default{
+				font ("Sans",11)
+			}
+			position(LEFT 10, MIDDLE)
+			value "'%1$s' %2$s '%3$s'"
+		}
+	}
+}
+
+
+
+edgeStyle implication (1){
+	appearance extends default {
+		lineWidth 3
+		lineStyle SOLID
+	}
+	decorator {
+		ARROW
+		location (1.0)
+	}
+	decorator {
+		movable
+		text {
+			appearance {
+				font("Courier Bold", BOLD, 12)
+			}
+			value "%s"
+		}
+		location (0.2)
+	}
+}
+
+edgeStyle any (1){
+	appearance extends default{
+		lineWidth 1
+	}
+	decorator {
+		ARROW
+		location (1.0)
+	}
+	decorator {
+		movable
+		text {
+			value "%s"
+		}
+		location (0.5)
+	}
+}
+
+edgeStyle next {
+	appearance extends default {
+		lineWidth 1
+	}
+	decorator {
+		ARROW
+		location (1.0)
+	}
+}

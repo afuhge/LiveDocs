@@ -1,0 +1,36 @@
+
+<!-- Modal -->
+<div class="btn-group-sm" role="group">
+    <button type="submit" (click)="showModal=true" class="btn btn-info btn-sm"><i class ="fas fa-edit fa-search"></i></button>
+</div>
+
+<div *ngIf="showModal" class="modal fade show text-left" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-info">
+                <h5 class="modal-title" id="exampleModalLabel">{{search(docs, input).length}} Search Results for '{{input}}'</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                    <table class="table table-hover">
+                        <tbody>
+                        <div *ngIf="search(docs,input).isEmpty|| hasNoPermission(search(docs,input))" class="alert alert-info alert-dismissible ">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-info"></i>Info!</h5>
+                            No documents found for '{{input}}'.
+                        </div>
+                        <tr *ngFor="let doc of search(docs,input)">
+                            <!--doc.1 anstatt 1- -->
+                            <td *ngIf="hasPermission(doc)" [routerLink]="panelUrl(doc.id)"
+                                [routerLinkActive]="'active'" style="cursor: pointer;"><b>{{doc.fileName}} ({{doc.name}})</b>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>

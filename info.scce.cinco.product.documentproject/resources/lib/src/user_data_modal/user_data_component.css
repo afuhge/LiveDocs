@@ -1,0 +1,10 @@
+.active-info input[type=text]:focus:not([readonly]) {
+    border: 1px solid #17a2b8;
+}
+
+.active-info input[type=email]:focus:not([readonly]) {
+    border: 1px solid #17a2b8;
+}
+.active-info input[type=password]:focus:not([readonly]) {
+    border: 1px solid #17a2b8;
+}

@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="btn-group-sm" role="group">
+    <button type="button"  style="float:none;" [disabled]="!doc.isSat" (click)="showModal=true" class="btn btn-danger btn-sm">Close</button>
+</div>
+
+<div *ngIf="showModal" class="modal fade show text-left" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div  *ngIf="!valid" class="modal-content">
+            <div class="modal-header text-white bg-gradient-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Document status: INVALID</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div class="container">
+                    <b> Error message: </b>
+                    <p style=" white-space: normal;">{{msg}}</p>
+                    <hr>
+                    <b> Do you still want to close this document?</b>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group-sm btn-group mr-2 " style="display:block; text-align: right;" role="group">
+                    <button type="button"  style="float:none;" (click)="showModal=false" class="btn btn-secondary" >Cancel</button>
+                    <button style="float:none;" (click)="close($event)" type="button" class="btn text-white btn-danger">Close</button>
+                </div>
+            </div>
+        </div>
+        <div  *ngIf="valid" class="modal-content">
+            <div  class="modal-header text-white bg-gradient-danger">
+                <h5 class="modal-title" id="exampleModalLabelValid">Close Document</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div class="container">
+                    <b> Do you really want to close this document?</b>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group-sm btn-group mr-2 " style="display:block; text-align: right;" role="group">
+                    <button type="button"  style="float:none;" (click)="showModal=false" class="btn btn-secondary" >Cancel</button>
+                    <button style="float:none;" (click)="close($event)" type="button" class="btn text-white btn-danger">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

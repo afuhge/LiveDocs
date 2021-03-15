@@ -1,0 +1,31 @@
+<!-- Modal -->
+<button type="button" class="btn btn-sm" [hidden]="doc.isSat" (click)="showModal=true"  style="margin-top: -5px;"><i class="fas fa-info-circle text-info" style="font-size: 20px;"></i></button>
+
+
+<div *ngIf="showModal" class="modal fade show text-left" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div  class="modal-content">
+            <div class="modal-header text-white bg-gradient-info">
+                <h5 class="modal-title" id="exampleModalLabel">Model Checking status: NOT SATISFIED</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div class="container">
+                    <b> Error message: </b>
+                    <p style=" white-space: normal;">{{doc.mc_msg}}</p>
+                    <hr>
+                    <b style=" white-space: normal;">You cannot close the document until the global constraints are not satisfied.</b>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group-sm btn-group mr-2 " style="display:block; text-align: right;" role="group">
+                    <button type="button"  style="float:none;" (click)="showModal=false" class="btn btn-secondary" >Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

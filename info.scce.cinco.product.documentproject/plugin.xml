@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+<extension
+	point="org.eclipse.ui.perspectives">
+	<perspective
+		class="info.scce.cinco.product.documentproject.perspective.DocumentProjectPerspective"
+		fixed="false"
+		id="info.scce.cinco.product.documentproject.documentprojectperspective"
+		name="DocumentProject Perspective">
+	</perspective>
+</extension><extension point="org.eclipse.ui.newWizards">
+<!--@CincoGen PROJECT_WIZARD_DOCUMENTPROJECT_WIZ -->
+<wizard category="de.jabc.cinco.meta.core.wizards.category.cinco" class="info.scce.cinco.product.documentproject.DocumentProjectProjectWizard" id="info.scce.cinco.product.documentproject.wizard.documentprojectproject" name="New DocumentProject Project">
+</wizard>
+</extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Template -->
+      <package class="info.scce.cinco.product.documentproject.template.template.views.ViewsPackage" uri="http://cinco.scce.info/product/template/views"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Template -->
+      <package class="info.scce.cinco.product.documentproject.template.template.internal.InternalPackage" uri="http://cinco.scce.info/product/template/internal"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Template -->
+      <package class="info.scce.cinco.product.documentproject.template.template.TemplatePackage" uri="http://cinco.scce.info/product/template"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Dependency -->
+      <package class="info.scce.cinco.product.documentproject.dependency.dependency.views.ViewsPackage" uri="http://cinco.scce.info/product/dependency/views"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Dependency -->
+      <package class="info.scce.cinco.product.documentproject.dependency.dependency.internal.InternalPackage" uri="http://cinco.scce.info/product/dependency/internal"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Dependency -->
+      <package class="info.scce.cinco.product.documentproject.dependency.dependency.DependencyPackage" uri="http://cinco.scce.info/product/dependency"/>
+   </extension><extension point="de.jabc.cinco.meta.plugin.generator.runtime.registry">
+<!--@MetaPlugin Generatable Documents-->
+<graphmodel class="info.scce.cinco.product.documentproject.documents.documents.Documents">
+</graphmodel>
+<generator bundle_id="info.scce.cinco.product.documentproject" class="info.scce.cinco.product.documentproject.generator.Generator" outlet="generated_webapp">
+</generator>
+</extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Documents -->
+      <package class="info.scce.cinco.product.documentproject.documents.documents.views.ViewsPackage" uri="http://cinco.scce.info/product/documents/views"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Documents -->
+      <package class="info.scce.cinco.product.documentproject.documents.documents.internal.InternalPackage" uri="http://cinco.scce.info/product/documents/internal"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Documents -->
+      <package class="info.scce.cinco.product.documentproject.documents.documents.DocumentsPackage" uri="http://cinco.scce.info/product/documents"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Constraint -->
+      <package class="info.scce.cinco.product.documentproject.constraint.constraint.views.ViewsPackage" uri="http://cinco.scce.info/product/constraint/views"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Constraint -->
+      <package class="info.scce.cinco.product.documentproject.constraint.constraint.internal.InternalPackage" uri="http://cinco.scce.info/product/constraint/internal"/>
+   </extension><extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Constraint -->
+      <package class="info.scce.cinco.product.documentproject.constraint.constraint.ConstraintPackage" uri="http://cinco.scce.info/product/constraint"/>
+   </extension><extension point="org.eclipse.ui.navigator.navigatorContent">
+<!--@CincoGen PROJECT_WIZARD_DOCUMENTPROJECT_NAV -->		
+<commonWizard menuGroupId="mgl" type="new" wizardId="info.scce.cinco.product.documentproject.wizard.documentprojectproject">
+	<enablement/>
+</commonWizard>
+</extension></plugin>

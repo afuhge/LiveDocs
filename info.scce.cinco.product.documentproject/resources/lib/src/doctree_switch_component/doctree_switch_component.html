@@ -1,0 +1,5 @@
+<tree-panel [panel]="panel"></tree-panel>
+
+
+<!-- set next panel-->
+<doctree-switch *ngIf="panel != null && panel.next != null" [panel]="panel.next"> </doctree-switch>

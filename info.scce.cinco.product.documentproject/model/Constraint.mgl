@@ -1,0 +1,175 @@
+stealth import "model/Dependency.mgl" as dep
+
+@mcam("check")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.constraint.checks.EdgesCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.constraint.checks.NoCycles")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.constraint.checks.NameIsSet")
+@style("model/Constraint.style")
+graphModel Constraint {
+	package info.scce.cinco.product.documentproject.constraint
+	nsURI "http://cinco.scce.info/product/constraint"
+	iconPath "icons/constraint_icon.png"
+	diagramExtension "constraint"
+	containableElements( {Premise, Conclusion} [0,*])
+	attr EString as name
+	
+	
+	abstract container ImplicationPattern {
+		containableElements({Panel, FieldConstraint} [1,*])
+	}
+	
+	@preDelete("info.scce.cinco.product.documentproject.constraint.hooks.Premise_PreDelete")
+	@postCreate("info.scce.cinco.product.documentproject.constraint.hooks.Premise_PostCreate")
+	@disable(resize)
+	@palette("Premise")
+	@icon("icons/template/pattern.png")
+	@style(pattern,"IF")
+	container Premise extends ImplicationPattern{
+		outgoingEdges(Implication [1,1])
+	}
+	
+	@disable(resize, create)
+	@style(pattern, "${operator}")
+	container Conclusion extends ImplicationPattern{
+		attr TemporalOperator as operator
+		containableElements({Panel, FieldConstraint} [1,1])
+		incomingEdges(Implication [1,1])
+	}
+	
+	
+	@disable(resize,move)
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.Panel_PostDelete")
+	@postCreate("info.scce.cinco.product.documentproject.constraint.hooks.Panel_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.OpenModelPanel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.SetName")
+	@style(panel, "${panel.name}")
+	node Panel {
+		prime dep::Panel as panel
+		@propertiesViewHidden attr EString as name
+		incomingEdges({Next }[0,1])
+		outgoingEdges({Next }[0,1])
+	}
+	
+	
+	
+	abstract container FieldConstraint {
+		@propertiesViewHidden attr EString as label
+		outgoingEdges({Next }[0,1])
+		incomingEdges({Next }[0,1])
+	}
+	
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostDelete")
+    @postCreate("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.TextFieldConstraint_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${fieldConstraint.field.label}", "${fieldConstraint.operator}", "${fieldConstraint.value}")
+	container TextFieldConstraint extends FieldConstraint{
+		prime dep::TextFieldConstraint as fieldConstraint
+		attr TextFieldOperator as operator
+		attr EString as value := "value"
+	}
+	
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostDelete")
+    @postCreate("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.NumberFieldConstraint_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${fieldConstraint.field.label}", "${fieldConstraint.operator}", "${fieldConstraint.value}")
+	container NumberFieldConstraint extends FieldConstraint{
+		prime dep::NumberFieldConstraint as fieldConstraint
+		attr NumberFieldOperator as operator
+		attr EInt as value
+	}
+	
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostDelete")
+    @postCreate("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.DateFieldConstraint_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${fieldConstraint.field.label}",  "${fieldConstraint.operator}","${fieldConstraint.date_day}/${fieldConstraint.date_month}/${fieldConstraint.date_year}")
+	container DateFieldConstraint extends FieldConstraint{
+		prime dep::DateFieldConstraint as fieldConstraint
+		attr DateFieldOperator as operator
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.constraint.provider.MonthProvider") attr EString as date_month
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.constraint.provider.DayProvider") attr EString as date_day
+		@possibleValuesProvider("info.scce.cinco.product.documentproject.constraint.provider.YearProvider") attr EString as date_year
+		
+	}
+	
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostDelete")
+    @postCreate("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.CheckFieldConstraint_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${fieldConstraint.field.label}", "${fieldConstraint.operator}", "${fieldConstraint.value}")
+	container CheckBoxFieldConstraint extends FieldConstraint{
+		prime dep::CheckBoxFieldConstraint as fieldConstraint
+		@readOnly attr EString as operator := "=="
+		attr EBoolean as value 
+	}
+	
+	@postDelete("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostDelete")
+    @postCreate("info.scce.cinco.product.documentproject.constraint.hooks.FieldConstraint_PostCreate")
+	@doubleClickAction("info.scce.cinco.product.documentproject.constraint.hooks.ChoiceFieldConstraint_OpenModel")
+	@postAttributeChange("info.scce.cinco.product.documentproject.constraint.hooks.Field_PostChange")
+	@palette("Constraints")
+	@style(fieldConstraint, "${fieldConstraint.field.label}", "${fieldConstraint.operator}", "${fieldConstraint.value}")
+	container ChoiceFieldConstraint extends FieldConstraint{
+		prime dep::ChoiceFieldConstraint as fieldConstraint
+		attr ChoiceFieldOperator as operator
+		attr EString as value [0,*]
+	}
+	
+	//----edges --------
+	
+
+	
+	@style(implication, "${then}")
+	edge Implication{
+		attr EString as then := "THEN"
+	}
+	
+	
+	
+	@style(any, "next")
+	edge Next {}
+	
+	
+	//------- enums --------------------------------------
+	
+
+	
+	enum TemporalOperator{
+		ALL EXIST 
+	}
+	
+	
+	enum TextFieldOperator {
+		equal
+		contains 
+		notEqual
+	}
+	
+	enum NumberFieldOperator {
+		lessEqual
+		less
+		greater
+		greaterEqual
+		equal
+		notEqual
+	}
+	
+	enum DateFieldOperator {
+		before
+		after
+		same
+	}
+
+	enum ChoiceFieldOperator {
+		equal 
+		in
+		notIn
+	}
+	
+}

@@ -1,0 +1,50 @@
+<h2>All Documents</h2>
+<hr>
+
+<div *ngIf="isActivated" class="card card-info card-outline">
+    <div class="card-header" style="height: 70px;">
+        <div class="d-flex bd-highlight mb-3">
+            <h3 class="card-title text-info pt-1 pl-2 pr-2 bd-highlight" style="margin-top: 6px;">Available
+                Documents</h3>
+            <div class="pl-2 pr-2 bd-highlight d-flex flex-column">
+                <a (click)="sortAscending()" style="cursor: pointer; padding-top:-5px;"><i class="fas fa-chevron-up text-secondary"></i></a>
+                <a (click)="sortDescending()" style="cursor: pointer;"><i class="fas fa-chevron-down text-secondary"></i></a>
+            </div>
+            <div class="card-tools ml-auto pl-2 pr-2 bd-highlight" style="margin-top: 6px;">
+                <div class="input-group-prepend ">
+                    <createdoc *ngIf="isEnabled()"></createdoc>
+                    <form [ngFormModel]="myPanel"  #docForm="ngForm">
+                    <div class="input-group input-group-sm active-info" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search"  ngControl="search"
+                               [class.is-invalid]="myPanel.controls['search'].invalid && myPanel.controls['search'].touched"
+                               [class.is-valid]="!myPanel.controls['search'].invalid">
+                        <div class="input-group-append">
+                            <search [docs]="docs" [input]="myPanel.controls['search'].value"></search>
+                        </div>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 100%;">
+        <table class="table table-hover">
+            <tbody>
+            <div *ngIf="docs.isEmpty|| hasNoPermission(docs)" class="alert alert-info alert-dismissible ">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-info"></i>Info!</h5>
+                No documents available.
+            </div>
+            <tr *ngFor="let doc of docs">
+                <!--doc.1 anstatt 1- -->
+                <td *ngIf="hasPermission(doc)" [routerLink]="panelUrl(doc.id)"
+                    [routerLinkActive]="'active'" style="cursor: pointer;"><b>{{doc.fileName}} ({{doc.name}})</b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>

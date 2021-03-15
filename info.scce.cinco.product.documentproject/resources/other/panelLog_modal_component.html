@@ -1,0 +1,47 @@
+<!-- Modal -->
+<button type="button" style="float:none; " (click)="showModal=true" class="btn btn-secondary btn-sm mr-1">
+    View Log
+</button>
+<div *ngIf="showModal" class="modal fade show" style="display:block;" tabindex="-1" role="dialog" aria-labelledby="logModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logModalLabel">Log details</h5>
+                <button type="button" class="close"  (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-left">
+                <div *ngIf="logs.isEmpty" class="alert alert-info alert-dismissible ">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-info"></i>Info!</h5>
+                    No log available.
+                </div>
+                
+                <div class="table-responsive">
+                <table class="table table-head-fixed table-bordered table-striped  ">
+                    <thead>
+                    <tr *ngIf="!logs.isEmpty">
+                        <th scope="col" style="white-space: nowrap;" >User</th>
+                        <th scope="col" style="white-space: nowrap;">Date</th>
+                        <th *ngFor="let key of logs.elementAt(0).content.keys" scope="col" style="white-space: nowrap;">{{key}} </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let logEntry of logs">
+                        <td *ngIf="logEntry.user != null" style="white-space: nowrap;">"{{logEntry.user.firstName}} {{logEntry.user.lastName}}" </td>
+                        <td *ngIf="logEntry.user == null" style="white-space: nowrap;">user empty</td>
+                        <td style="white-space: nowrap;">{{logEntry.date | date:"short"}} </td>
+                        <td *ngFor="let value of logEntry.content.values" scope="col" style="white-space: nowrap;">{{value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="showModal=false" >Close</button>
+             </div>
+        </div>
+    </div>
+</div>

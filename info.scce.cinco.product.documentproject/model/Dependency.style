@@ -1,0 +1,127 @@
+appearance default {
+	lineWidth 2
+	foreground (0,0,0)
+}
+
+nodeStyle panel (1){
+	appearanceProvider ("info.scce.cinco.product.documentproject.dependency.aps.PanelColoring")
+	roundedRectangle {
+		appearance default
+		size(40,40)
+		corner (4,4)
+		multiText {
+			position ( CENTER, MIDDLE )
+			value "%1$s"
+		}
+	}
+}
+
+nodeStyle constraint (1){
+	ellipse {
+		appearance {
+			background (233,208,0)
+			lineWidth 2
+		}
+		size(70,70)
+		multiText {
+			position ( CENTER, MIDDLE )
+			value "%1$s"
+		}
+		image {
+			position(RIGHT, TOP)
+			size (16,16)
+			path ("icons/constraint_icon.png")
+		}
+	}
+	
+}
+
+nodeStyle and (1){
+	roundedRectangle {
+		appearance default
+		size (120,80)
+		corner (8,8)
+		text and {
+			appearance default
+			position (LEFT 5, TOP 5)
+			value "%1$s"
+		}
+	}
+}
+
+nodeStyle field (1){
+	rectangle {
+		appearance {
+			background (255,255,255)
+			foreground (0,0,0)
+			filled true
+		}
+		size (40,40)
+		multiText label {
+			appearance extends default {
+				font ("Helvetica",10)
+				
+			}
+			position (CENTER, MIDDLE)
+			value "%1$s"
+		}
+	}
+}
+
+
+nodeStyle fieldConstraint (3) {
+	rectangle {
+		appearance extends default{
+			background (252,239,217)
+			lineWidth 1
+		}
+		size (160,40)
+		multiText label {
+			appearance extends default{
+				font ("Sans",11)
+			}
+			position(LEFT 10, MIDDLE)
+			value "'%1$s' %2$s '%3$s'"
+		}
+	}
+}
+
+edgeStyle constraintEdge {
+	appearance default	
+	decorator {
+		location (1.0) // at the end of the edge
+		ARROW
+		appearance default 
+	}
+}
+
+edgeStyle may {
+	appearance extends default	{
+		lineStyle DASH
+	}
+	decorator {
+		location (1.0) // at the end of the edge
+		ARROW
+		appearance default 
+	}
+}
+
+edgeStyle else (1){
+	appearance extends default	{
+		lineStyle SOLID
+	}
+	decorator {
+		location (1.0) // at the end of the edge
+		ARROW
+		appearance default 
+	}
+	decorator {
+		movable
+		location (0.5)
+		text {
+			value "%s"
+		}
+	}
+}
+
+

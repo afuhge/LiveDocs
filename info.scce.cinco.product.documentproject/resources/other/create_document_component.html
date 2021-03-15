@@ -1,0 +1,47 @@
+<div class="container">
+   <button *ngIf="isEnabled()" style="floated:left;" type="button" (click)="showModal=true" class="btn btn-info btn-sm font-weight-bold"><i class ="fas fa-plus fa-fw"></i>Create Document</button>
+</div>
+<div *ngIf="showModal" class="modal fade show" tabindex="-1" role="dialog" style="display:block;" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-info" >
+                <h5 class="modal-title" id="exampleModalLabel">Create New Document</h5>
+                <button type="button" class="close" (click)="showModal=false" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-secondary" >
+                <div class="container">
+                    <form [ngFormModel]="createDoc" (ngSubmit)="submit($event, createDoc)" #docForm="ngForm">
+                        <div class="form-group text-left active-info">
+                            <label for="docName">Document name&nbsp;*</label>
+                            <input type="text" class="form-control" id="docName" placeholder="Enter..." ngControl="docName"
+                                   [class.is-invalid]="createDoc.controls['docName'].invalid && createDoc.controls['docName'].touched"
+                                   [class.is-valid]="!createDoc.controls['docName'].invalid">
+                            <div [hidden]="createDoc.controls['docName'].valid || createDoc.controls['docName'].pristine" class="invalid-feedback">
+                                Please enter a document name with at least 3 characters.
+                            </div>
+                        </div>
+                        <div class="form-group text-left active-info">
+                            <label  for="type"> Document type&nbsp;*</label>
+                            <select class="form-control" id="type" ngControl="type"
+                                    [class.is-valid]="!createDoc.controls['type'].invalid">
+                                <option *ngFor="let docType of docTypes">{{docType}}</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <small class="col text-right">*&nbsp;Required</small>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group-sm btn-group " style="display:block; text-align: right;" role="group">
+                                <button type="button"  style="float:none;" (click)="close()" class="btn btn-secondary" >Close</button>
+                                <button [disabled]="createDoc.invalid"  style="float:none;"  (click)="submit($event, createDoc)" type="submit" class="btn text-white btn-info">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

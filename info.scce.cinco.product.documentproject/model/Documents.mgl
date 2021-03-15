@@ -1,0 +1,50 @@
+stealth import "/model/Dependency.mgl" as dep
+
+
+@generatable("info.scce.cinco.product.documentproject.generator.Generator","generated_webapp")
+@mcam("check")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.documents.checks.UniqueNames")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.documents.checks.MissingCreateEdge")
+@style("model/Documents.style")
+graphModel Documents {
+	package info.scce.cinco.product.documentproject.documents
+	nsURI "http://cinco.scce.info/product/documents"
+	iconPath "icons/documents_icon.png"
+	diagramExtension "documents"
+	containableElements (Role [1,*],  Document [1,*], UserIcon)
+	
+	@palette("Role")
+	@postAttributeChange("info.scce.cinco.product.documentproject.documents.hooks.Role_ValueChange")
+	@postMove("info.scce.cinco.product.documentproject.documents.hooks.Role_postMove")
+	@preDelete("info.scce.cinco.product.documentproject.documents.hooks.Role_postDelete")
+	@icon("icons/template/role.png")
+	@style(role, "${name}")
+	node Role {
+		incomingEdges (Transition [0,*])
+		outgoingEdges ({Transition, CreateDocument} [0,*])
+		attr EString as name := "Name"
+		attr EBoolean as manageUsers
+		@propertiesViewHidden attr UserIcon as iconRef
+	}	
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.documents.actions.OpenModel")
+	@style(dependency, "${dependency.name}")
+	node Document {
+		prime dep::Dependency as dependency
+		incomingEdges(CreateDocument[0,*])
+	}
+	
+	@disable(create,resize,move,delete)
+	@style(userIcon)
+	node UserIcon{}
+	
+	
+	
+	@style(simpleArrow)
+	edge Transition { 
+	}
+	
+	@style(create,"can create")
+	edge CreateDocument  {}
+}
+

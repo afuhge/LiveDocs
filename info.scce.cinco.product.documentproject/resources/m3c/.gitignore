@@ -1,0 +1,9 @@
+bin/
+target/
+src-gen/
+classes/
+maven-status/
+test-classes/
+annotations/
+*.iml
+.idea/

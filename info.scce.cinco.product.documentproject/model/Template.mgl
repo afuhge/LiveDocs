@@ -1,0 +1,404 @@
+import "model/Documents.mgl" as docs
+import "model/Dependency.mgl" as dependency
+
+@mcam("check")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.template.checks.UniqueFieldNames")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.template.checks.FieldCheck")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.template.checks.UniquePanelNames")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.template.checks.AccessRightsDuplicated")
+@mcam_checkmodule("info.scce.cinco.product.documentproject.template.checks.UnusedPanel")
+@style("model/Template.style")
+graphModel Template {
+	package info.scce.cinco.product.documentproject.template
+	nsURI "http://cinco.scce.info/product/template"
+	iconPath "icons/template_icon.png"
+	diagramExtension "template"
+	containableElements ({Panel, Role} [0,*])
+	
+	
+	@doubleClickAction("info.scce.cinco.product.documentproject.template.actions.DoubleClick_OpenRoleModel")
+	@contextMenuAction("info.scce.cinco.product.documentproject.template.actions.ContextMenu_OpenRoleModel")
+	@style(role, "${role.name}")
+	node Role {
+		prime docs::Role as role
+		outgoingEdges({Write, Read} [0,*])
+	}	
+	
+	
+	@palette("Panel")
+	@disable(resize)
+	@style(panelStyle,"${name}")
+	@icon("icons/template/panel.png")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	container Panel extends BaseElement {
+		attr EString as name := "MyHeadline"
+		attr Coloring as color
+		incomingEdges({PanelRead, PanelWrite}[0,*])
+		containableElements({Dependency,Field, StaticText} [0,*], Button [1,1])
+	}
+	
+	/**
+	 * Abstract super container for all
+	 * movable container (components) which can be placed in a template
+	 */
+	abstract container MovableContainer {
+	}
+	
+	abstract container BaseElement extends MovableContainer {}
+	
+	@style(buttonStyle, "${displayLabel == null or displayLabel.isEmpty() ? label : displayLabel}")
+	@disable(resize,create, delete)
+	@icon("icons/template/button.png")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	container Button extends BaseElement{
+		@mcam_label
+		attr EString as displayLabel := "Submit"
+		attr Coloring as color
+		attr Icon as icon
+		
+	}
+
+	
+	//--FIELDS------------------------------------------------------------------
+	abstract container Field extends BaseElement {
+		attr EString as label := "label"
+		attr Coloring as color
+		attr FieldAdditionalOptions as additionalOptions
+		attr FieldValidation as validation
+	}
+	
+	@palette("Field")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@icon("icons/template/textField.png")
+	@style(field, "${label}", "${content}")
+	container TextField extends Field{
+		@propertiesViewHidden attr EString as content := "null"
+		incomingEdges({TextFieldRead, TextFieldWrite}[0,*]) 
+	}
+	@palette("Field")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@icon("icons/template/numberField.png")
+	@style(field, "${label}", "${content}")
+	container NumberField extends Field{
+		@propertiesViewHidden attr EString as content := "0"
+		incomingEdges({NumberFieldRead, NumberFieldWrite}[0,*]) 
+	}
+	@palette("Field")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@icon("icons/template/dateField.png")
+	@style(field, "${label}", "${content}")
+	container DateField extends Field{
+		@propertiesViewHidden attr EString as content := "0"
+		incomingEdges({DateFieldRead, DateFieldWrite}[0,*]) 
+	}
+	@palette("Field")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@icon("icons/template/checkboxField.png")
+	@style(field, "${label}", "${content}")
+	container CheckBoxField extends Field{
+		@propertiesViewHidden attr EBoolean as content := "false"
+		incomingEdges({CheckBoxFieldRead, CheckBoxFieldWrite}[0,*]) 
+	}
+	@palette("Field")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@icon("icons/template/choiceField.png")
+	@style(field, "${label}", "${content}")
+	container ChoiceField extends Field{
+		attr EString as content [0,*]
+		incomingEdges({ChoiceFieldRead, ChoiceFieldWrite}[0,*]) 
+	}
+	
+	//----- Prime Reference to Dependency model---------------------------------
+	
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@doubleClickAction("info.scce.cinco.product.documentproject.template.actions.DoubleClick_OpenDependencyModel")
+	@contextMenuAction("info.scce.cinco.product.documentproject.template.actions.ContextMenu_OpenDependencyModel")
+	@style(dependency, "${dependency.name}")
+	container Dependency extends BaseElement {
+		prime dependency::Dependency as dependency
+	}
+	
+	//-------------static text ------
+	@palette("Text")
+	@icon("icons/template/staticText.png")
+	@postCreate("info.scce.cinco.product.documentproject.template.hooks.CreateComponentHook")
+	@postMove("info.scce.cinco.product.documentproject.template.hooks.MoveComponentHook")
+	@preDelete("info.scce.cinco.product.documentproject.template.hooks.DeleteComponentHook")
+	@style(staticText, "${content}")
+	container StaticText extends BaseElement {
+		@multiLine
+		attr EString as content
+		attr Coloring as color
+	}
+	
+	//--------edges --------------------------------------
+	abstract edge Write {
+		attr EString as label := "write"
+	}
+	
+	abstract edge Read {
+		attr EString as label := "read"
+	}
+	
+	@style(write, "${label}")
+	edge PanelWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge PanelRead extends Read{
+		
+	}
+	
+	@style(write, "${label}")
+	edge TextFieldWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge TextFieldRead extends Read{
+		
+	}
+	
+	@style(write, "${label}")
+	edge NumberFieldWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge NumberFieldRead extends Read{
+		
+	}
+	
+	@style(write, "${label}")
+	edge DateFieldWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge DateFieldRead extends Read{
+		
+	}
+	
+	@style(write, "${label}")
+	edge ChoiceFieldWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge ChoiceFieldRead extends Read{
+		
+	}
+	
+	@style(write, "${label}")
+	edge CheckBoxFieldWrite extends Write{
+		
+	}
+	
+	@style(read, "${label}")
+	edge CheckBoxFieldRead extends Read{
+		
+	}
+	
+	//----types---------------------------
+	/**
+	 * The form field validation type can be added to a form field
+	 * to enable validation. Besides the input type specific validation
+	 * a form field can be required and a minimal and maximal amount
+	 * of characters can be set.
+	 * If the validation fails, the given error text is displayed under
+	 * the form field.
+	 */
+	type FieldValidation {
+		attr EBoolean as required := false
+		attr EInt as min := "-1"
+		attr EInt as max := "-1"
+		attr EString as errorText
+		
+	}
+	
+	/**
+	 * The additional field option type can be used to extend a form
+	 * field with an empty value which is displayed when no input is present.
+	 * The read only flag disables editing.
+	 * The help text is displayed in small letters under the form field.
+	 */
+	type FieldAdditionalOptions {
+		attr EString as emptyValue
+		attr EString as helpText
+	}
+	
+	
+	
+	/**
+	 * Height relative to the current height of the page
+	 */
+	
+	/**
+	 * The icon type combines two glyphicons.
+	 * The pre icon is rendered before and the post icon after the content.
+	 */
+	type Icon {
+		attr Glyphicon as preIcon
+		attr Glyphicon as postIcon
+	}
+	
+	/**
+	 * Glyphicons in relation to the glyphicons from: http://getbootstrap.com
+	 * The icons can be used before and after the content of the StaticContent
+	 */
+	enum Glyphicon {
+		None
+		Adjust
+		Alert
+		Apple
+		ArrowDown
+		ArrowLeft
+		ArrowRight
+		ArrowUp
+		BanCircle
+		Bell
+		Blackboard
+		Book
+		Bookmark
+		Bold
+		Briefcase
+		Bullhorn
+		Calendar
+		Camera
+		Cd
+		Certificate
+		Check
+		ChevronDown
+		ChevronLeft
+		ChevronRight
+		ChevronUp
+		Cloud
+		Cog
+		Comment
+		Copy
+		Dashboard
+		Download
+		Duplicate
+		Earphone
+		Edit
+		Education
+		Envelope
+		Equalizer
+		Erase
+		Euro
+		EyeOpen
+		Expand
+		Export
+		File
+		Film
+		Filter
+		Fire
+		Flag
+		Flash
+		FloppyDisk
+		FloppySaved
+		FloppyRemove
+		FolderClose
+		FolderOpen
+		Font
+		Gift
+		Glass
+		Globe
+		Hdd
+		Headphones
+		Heart
+		Home
+		Hourglass
+		Import
+		Inbox
+		InfoSign
+		Italic
+		Leaf
+		Link
+		Lock
+		LogIn
+		LogOut
+		Magnet
+		Minus
+		Music
+		Move
+		Off
+		Ok
+		OkCircle
+		Open
+		Paperclip
+		Paste
+		Pencil
+		Phone
+		Picture
+		Plus
+		Print
+		Pushpin
+		QuestionSign
+		Random
+		Refresh
+		Remove
+		RemoveCircle
+		Repeat
+		Retweet
+		Road
+		Save
+		Saved
+		Scale
+		Screenshot
+		Search
+		Send
+		Share
+		Signal
+		Star
+		Stats
+		Tag
+		Tasks
+		ThumbsUp
+		Time
+		Tint
+		Transfer
+		Trash
+		TriangleDown
+		TriangleLeft
+		TriangleRight
+		TriangleUp
+		Unchecked
+		Upload
+		Usd
+		User
+		Wrench
+		ZoomIn
+		ZoomOut
+	}
+	
+	
+	/**
+	 * The coloring enum is used for the color of multiple components
+	 */
+	enum Coloring {
+		"Default"
+		"Green"
+		"Red"
+		"Yellow"
+		"Blue"
+		"Lightblue"
+	}
+	
+}
+
