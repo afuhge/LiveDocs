@@ -24,8 +24,8 @@ application, a user can complete a document by filling out and submitting a form
 6. After modeling, you can generat the correspondind web application by hittin the "G"-Button in the upper toolbar.
 7. To start the web application you have to do the following steps:
     1. Build m3c: `cd m3c`and then `mvn install`
-    2. Build livedocs-ws: `cd livedocs-ws`and then `mvn install`
-    3. start the server: `cd livedocs-ws` and then `java -jar target/livedocs-ws-1.0-SNAPSHOT-jar-with-dependencies.jar'
+    2. Build livedocs-ws: `cd livedocs-ws`and then `mvn assembly:single`
+    3. start the server: `cd livedocs-ws` and then `java -jar target/livedocs-ws-1.0-SNAPSHOT-jar-with-dependencies.jar`
     4. Go to "pubsepc.yaml" and run `pub get` and `pub update'
     5. Run application: 'pub global run webdev serve web:53322". (You can also choose "run index.html" in the context menu of 'index.html'.
 
