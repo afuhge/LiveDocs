@@ -1,6 +1,6 @@
 # LiveDocs
 
-## Wahat is LiveDocs?
+## What is LiveDocs?
 This tool is the result of my master thesis "LiveDocs: Document-Centric Process Management".
 
 LiveDocs allows the development of form-driven web applications using CINCO. It consist of two components, a modeling tool and a web
@@ -14,8 +14,9 @@ application, a user can complete a document by filling out and submitting a form
 3. Go to 'info.scce.cinco.product.docuemntproject' -> model -> DocumentProjectTool.cpd. Right-klick on it and choose "Generate Cinco product".
 4. After generation, start a new instance.
 5. In this new instance you can create a "New Document Project", where you can use the 4 DSLs to create your web application.
+ Concept of these DSLs:  
+![conceptDSLs2](https://user-images.githubusercontent.com/80321708/111160747-aedb5680-859a-11eb-87b8-7f9aff1c82f4.png)
 
-TODO: explain concept + example images
 
 6. After modeling, you can generat the correspondind web application by hittin the "G"-Button in the upper toolbar.
 7. To start the web application you have to do the following steps:
