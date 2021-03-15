@@ -9,4 +9,16 @@ application, a user can complete a document by filling out and submitting a form
 
 ## How to use it
 
-1. Download a CINCO Installer from [here](https://cinco.scce.info/download/)
+1. Download a CINCO Installer from [here](https://cinco.scce.info/download/). Open the installer and make sure to use Java 1.8.
+2. Import the projects 'info.scce.cinco.product.docuemntproject' and 'info.scce.cinco.product.docuemntproject.views'
+3. Go to 'info.scce.cinco.product.docuemntproject' -> model -> DocumentProjectTool.cpd. Right-klick on it and choose "Generate Cinco product".
+4. After generation, start a new instance.
+5. In this new instance you can create a "New Document Project", where you can use the 4 DSLs to create your web application.
+
+TODO: explain concept + example images
+
+6. After modeling, you can generat the correspondind web application by hittin the "G"-Button in the upper toolbar.
+7. To start the web application you have to do the following steps:
+    1. start the server:
+    2. Go to "pubsepc.yaml" and run 'pub get' and 'pub update'
+    3. Run application: 'pub global run webdev serve web:53322". (You can also choose "run index.html" in the context menu of 'index.html'.
